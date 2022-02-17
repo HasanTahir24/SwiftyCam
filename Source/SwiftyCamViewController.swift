@@ -311,6 +311,7 @@ import AVFoundation
 				// Begin Session
 				self.session.startRunning()
 				self.isSessionRunning = self.session.isRunning
+                self.convertTo240FpsIfSupported()
                 
                 // Preview layer video orientation can be set only after the connection is created
                 DispatchQueue.main.async {
@@ -1164,3 +1165,20 @@ extension SwiftyCamViewController : UIGestureRecognizerDelegate {
 	}
 }
 
+extension SwiftyCamViewController{
+    func convertTo240FpsIfSupported(){
+        if let desiredFormat = videoDevice?.formats.first(where: {$0.videoSupportedFrameRateRanges.first?.maxFrameRate ==  240 && $0.highResolutionStillImageDimensions.width == 1920 && $0.highResolutionStillImageDimensions.height == 1080 && $0.mediaType == .video}){
+            print(desiredFormat)
+            do{
+                try videoDevice?.lockForConfiguration()
+                videoDevice?.activeFormat = desiredFormat
+                videoDevice?.unlockForConfiguration()
+
+            }
+            catch{
+                print("Could not set active format")
+                print(error)
+            }
+        }
+    }
+}
