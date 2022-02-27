@@ -331,7 +331,6 @@ import AVFoundation
 
     /// ViewDidLayoutSubviews() Implementation
     private func updatePreviewLayer(layer: AVCaptureConnection, orientation: AVCaptureVideoOrientation) {
-
         layer.videoOrientation = orientation
 
         previewLayer.frame = self.view.bounds
@@ -344,7 +343,7 @@ import AVFoundation
 
                let currentDevice: UIDevice = UIDevice.current
 
-               let orientation: UIDeviceOrientation = currentDevice.orientation
+               let orientation: UIDeviceOrientation = .portrait// currentDevice.orientation
 
                let previewLayerConnection : AVCaptureConnection = connection
 
@@ -352,19 +351,22 @@ import AVFoundation
 
                    switch (orientation) {
                    case .portrait: updatePreviewLayer(layer: previewLayerConnection, orientation: .portrait)
+                       print("portrait")
 
                        break
 
                    case .landscapeRight: updatePreviewLayer(layer: previewLayerConnection, orientation: .landscapeLeft)
+                       print("landscapeRight")
 
                        break
 
                    case .landscapeLeft: updatePreviewLayer(layer: previewLayerConnection, orientation: .landscapeRight)
-
+                       print("landscapeLeft")
                        break
 
                    case .portraitUpsideDown: updatePreviewLayer(layer: previewLayerConnection, orientation: .portraitUpsideDown)
 
+                       print("portraitUpsideDown")
                        break
 
                    default: updatePreviewLayer(layer: previewLayerConnection, orientation: .portrait)
@@ -424,7 +426,7 @@ import AVFoundation
                 
                 // Preview layer video orientation can be set only after the connection is created
                 DispatchQueue.main.async {
-                    self.previewLayer.videoPreviewLayer.connection?.videoOrientation = self.orientation.getPreviewLayerOrientation()
+                    self.previewLayer.videoPreviewLayer.connection?.videoOrientation = .portrait // self.orientation.getPreviewLayerOrientation()
                     self.updatePreviewLayer()
                 }
 
@@ -565,7 +567,7 @@ import AVFoundation
                     movieFileOutputConnection?.isVideoMirrored = true
                 }
 
-                movieFileOutputConnection?.videoOrientation = self.orientation.getVideoOrientation() ?? previewOrientation
+                movieFileOutputConnection?.videoOrientation = .portrait// self.orientation.getVideoOrientation() ?? previewOrientation
 
                 // Start recording to a temporary file.
                 let outputFileName = UUID().uuidString
