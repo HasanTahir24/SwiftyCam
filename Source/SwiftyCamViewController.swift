@@ -341,7 +341,7 @@ import AVFoundation
     private func updatePreviewLayer() {
            if let connection =  self.previewLayer?.videoPreviewLayer.connection  {
 
-               let currentDevice: UIDevice = UIDevice.current
+               let _: UIDevice = UIDevice.current
 
                let orientation: UIDeviceOrientation = .portrait// currentDevice.orientation
 
