@@ -564,7 +564,7 @@ import AVFoundation
 
                 //flip video output if front facing camera is selected
                 if self.currentCamera == .front {
-                    movieFileOutputConnection?.isVideoMirrored = true
+                    //movieFileOutputConnection?.isVideoMirrored = true
                 }
 
                 movieFileOutputConnection?.videoOrientation = self.orientation.getVideoOrientation() ?? previewOrientation
