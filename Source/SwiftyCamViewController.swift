@@ -1365,7 +1365,13 @@ extension SwiftyCamViewController : AVCaptureFileOutputRecordingDelegate {
             }
         }
 
-        if let currentError = error {
+        if error?.localizedDescription ?? "" == "Recording Stopped"{
+            DispatchQueue.main.async {
+                self.cameraDelegate?.swiftyCam(self, didFinishProcessVideoAt: outputFileURL)
+            }
+        }
+        
+        else if let currentError = error {
             print("[SwiftyCam]: Movie file finishing error: \(currentError)")
             DispatchQueue.main.async {
                 self.cameraDelegate?.swiftyCam(self, didFailToRecordVideo: currentError)
